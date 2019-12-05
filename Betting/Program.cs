@@ -16,6 +16,20 @@ namespace Betting
             //CONFIG
             int globalYears = 10;
             int globalDays = 250;
+            int globalBalance = 100000;
+            int globalBet = 100;
+            int globalTurnsPerDay = 240;
+            //How to bet?
+            //Bet Only on Red
+            bool onlyRed = false;
+            //Bet Only on Black
+            bool onlyBlac = false;
+            //Bet on the previous Winner
+            bool betprev = false;
+            //Bet randomly
+            bool random = false;
+            //Bet switching between red and black
+            bool betSwitch = false;
             //Reference Classes
             //Class that does daily betting
             Simulate sim = new Simulate();
@@ -39,14 +53,40 @@ namespace Betting
             ExcelSheet = ExcelWorkbook.Sheets[0];
             //Setup YEAR For Loop
             int years = globalYears;
-            for(int index = 0;index<years;years++)
+            for(int index = 0;index<years; years++)
             {
                 //Setup DAYS For Loop
                 int days = globalDays;
-                for (int counter = 0;counter<days;counter++)
-                {
-
+                int daysRows = 2;
+                int daysCols = 2;
+                int bet = globalBet;
+                int balance = globalBalance;
+                int wins=0, loses=0, highestbet=0;
+                int betTurns = globalTurnsPerDay;
+                int betColor = 0;
+                Random rnd = new Random();
+                for (int counter = 0;counter<days; counter++)
+                {   //Determine bet
+                    if (random)
+                        betColor = rnd.Next(0, 2);
+                    else if (onlyRed)
+                        betColor = 0;
+                    else if (onlyBlac)
+                        betColor = 1;
+                    //switch to red when bet is equal to one
+                    if (betColor == 1 && betSwitch)
+                        betColor = 0;
+                    if (betSwitch)
+                        betColor++;
+                    //Run simulation for day
+                    bool success = sim.dailyBet(betColor, bet, ref balance, ref wins, ref loses, ref highestbet, betTurns);
+                    //Set active sheet to current year
+                    ExcelSheet = ExcelWorkbook.Sheets[counter + 2];
+                    //populate the days stats
+                    ExcelSheet.Cells[daysRows, daysCols] =   
                 }
+                //Set active sheet to year panel
+                ExcelSheet = ExcelWorkbook.Sheets[0];
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Betting
     {
         //RETURNS SUCCESS IF YOU MAKE IT THROUGH ALL TURNS FOR THE DAY (250)
         //RETURNS FAIL IF YOUR BET EXCEEDS YOUR BALANCE
-        public bool dailyBet(int bet,ref int balance, ref int wins, ref int loses, ref int highestbet, int betTurns)
+        public bool dailyBet(int betColor,int bet, ref int balance, ref int wins, ref int loses, ref int highestbet, int betTurns)
         {
             Random rnd = new Random();
             int beginBet = bet;
