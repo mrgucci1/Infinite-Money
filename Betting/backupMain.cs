@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,7 +60,7 @@ namespace Betting
                         winflag[x] = 0;
                         failure++;
                         break;
-                    }*/
+                    }
                     if (i == (gloablturns - 1))
                     {
                         balancearray[x] = balance;
@@ -185,3 +185,4 @@ namespace Betting
         }
     }
 }
+    */
